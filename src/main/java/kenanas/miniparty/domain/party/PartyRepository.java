@@ -42,7 +42,7 @@ public class PartyRepository {
         findParty.setPartyDescription(updateParam.getPartyDescription());
 
         //선택사항 3
-        findParty.setPublic(updateParam.isPublic());
+        findParty.setIsPublic(updateParam.getIsPublic());
         findParty.setPartyPassword(updateParam.getPartyPassword());
         findParty.setImageUrl(updateParam.getImageUrl());
     }

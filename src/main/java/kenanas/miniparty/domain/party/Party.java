@@ -39,4 +39,12 @@ public class Party {
         //방 만든사람은 자동으로 목록에 추가.
         this.members.add(partyAdmin);
     }
+
+    public boolean getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
 }

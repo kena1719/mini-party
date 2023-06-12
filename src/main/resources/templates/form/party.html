@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+            href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>파티 정보</h2>
+    </div>
+
+    <!-- 추가 -->
+    <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
+
+    <div>
+        <label for="partyId">파티 ID</label>
+        <input type="text" id="partyId" name="partyId" class="form-control" value="1" th:value="${party.partyId}" readonly>
+    </div>
+    <div>
+        <label for="partyName">파티명</label>
+        <input type="text" id="partyName" name="partyName" class="form-control" value="파티A" th:value="${party.partyName}" readonly>
+    </div>
+    <div>
+        <label for="partyDescription">간략소개</label>
+        <input type="text" id="partyDescription" name="partyDescription" class="form-control" value="1파티입니다." th:value="${party.partyDescription}" readonly>
+    </div>
+    <div>
+        <label for="partyAdmin">파티장</label>
+        <input type="text" id="partyAdmin" name="partyAdmin" class="form-control" value="2" th:value="${party.partyAdmin}" readonly>
+    </div>
+
+    <hr class="my-4">
+
+    <!-- single checkbox -->
+    <div>공개 여부</div>
+    <div>
+        <div class="form-check">
+            <input type="checkbox" id="open" th:field="${party.isPublic}" class="form-check-input" disabled>
+            <label for="open" class="form-check-label">모두에게 공개</label>
+        </div>
+    </div>
+
+
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='editParty.html'"
+                    th:onclick="|location.href='@{/parties/{partyId}/edit(partyId=${party.partyId})}'|"
+                    type="button">파티 수정</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='parties.html'"
+                    th:onclick="|location.href='@{/parties}'|"
+                    type="button">목록으로</button>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+</body>
+</html>

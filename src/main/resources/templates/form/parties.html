@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+            href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>파티 목록</h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='addForm.html'"
+                    th:onclick="|location.href='@{/parties/add}'|"
+                    type="button">파티 생성</button>
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>파티ID</th>
+                <th>파티명</th>
+                <th>소개</th>
+                <th>파티장</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="party : ${parties}">
+                <td><a href="party.html" th:href="@{/parties/{partyId}(partyId=${party.partyId})}" th:text="${party.partyId}">파티id</a></td>
+                <td><a href="party.html" th:href="@{|/parties/${party.partyId}|}" th:text="${party.partyName}">파티명</a></td>
+                <td th:text="${party.partyDescription}">간략소개</td>
+                <td th:text="${party.partyAdmin}">5</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>
