@@ -15,8 +15,8 @@ public class PostRepository {
 
     //저장
     public Post save(Post post){
-        post.setPostId(sequence++);
-        store.put(post.getPostId(), post);
+        post.setId(++sequence);
+        store.put(post.getId(), post);
         return post;
     }
 

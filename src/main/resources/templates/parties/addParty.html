@@ -8,6 +8,10 @@
         .container {
             max-width: 560px;
         }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -18,14 +22,22 @@
         <h2>파티 생성 폼</h2>
     </div>
 
-    <form action="party.html" th:action th:object="${party}" method="post">
+
+
+    <form action="party.html" th:action th:object="${party}" enctype="multipart/form-data" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+               th:text="${err}">전체 오류 메시지</p>
+        </div>
         <div>
             <label for="partyName">파티명</label>
             <input type="text" id="partyName" th:field="*{partyName}" class="form-control" placeholder="파티명을 입력하세요">
+            <div class="field-error" th:errors="*{partyName}" />
         </div>
         <div>
-            <label for="partyDescription">파티 간략설명</label>
+            <label for="partyDescription">파티 소개</label>
             <input type="text" id="partyDescription" th:field="*{partyDescription}" class="form-control" placeholder="파티 설명을 입력하세요">
+            <div class="field-error" th:errors="*{partyDescription}" />
         </div>
 
         <hr class="my-4">
@@ -36,6 +48,14 @@
                 <input type="checkbox" id="public" th:field="${party.isPublic}" class="form-check-input" checked>
                 <label for="public" class="form-check-label">모두에게 공개</label>
             </div>
+        </div>
+        <div>
+            <label for="partyPassword">비밀번호</label>
+            <input type="text" id="partyPassword" name="partyPassword" class="form-control" value="" th:value="${party.partyPassword}">
+        </div>
+        <div>
+            <label for="imageUrl">파티 소개 이미지</label>
+            <input type="file" id="imageUrl" name="imageUrl" class="form-control" th:value="${party.imageUrl}">
         </div>
         <hr class="my-4">
 

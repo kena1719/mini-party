@@ -18,23 +18,23 @@ public class PartyRepositoryTest {
     @Test
     void save(){
         //given
-        Party party = new Party("파티A", "처음 만든 파티입니다", 0,
+        Party party = new Party("파티A", "처음 만든 파티입니다", 0L,
                 true, null, null);
 
         //when
         Party savedParty = partyRepository.save(party);
 
         //then
-        Party findParty = partyRepository.findById(savedParty.getPartyId());
+        Party findParty = partyRepository.findById(savedParty.getId());
         assertThat(findParty).isEqualTo(savedParty);
     }
 
     @Test
     void findAll(){
         //given
-        Party party1 = new Party("파티A", "처음 만든 파티입니다", 0,
+        Party party1 = new Party("파티A", "처음 만든 파티입니다", 0L,
                 true, null, null);
-        Party party2 = new Party("파티B", "두번째로 만든 파티입니다", 0,
+        Party party2 = new Party("파티B", "두번째로 만든 파티입니다", 0L,
                 false, null, null);
 
         partyRepository.save(party1);
@@ -52,14 +52,14 @@ public class PartyRepositoryTest {
     void updateInfo(){
 
         //given
-        Party party = new Party("파티A", "처음 만든 파티입니다", 0,
+        Party party = new Party("파티A", "처음 만든 파티입니다", 0L,
                 true, null, null);
 
         Party savedParty = partyRepository.save(party);
-        Long partyId = savedParty.getPartyId();
+        Long partyId = savedParty.getId();
 
         //when
-        Party updateParty = new Party("파티M", "수정한 파티입니다", 0,
+        Party updateParty = new Party("파티M", "수정한 파티입니다", 0L,
                 false, null, null);
 
         partyRepository.update(partyId, updateParty);
@@ -68,25 +68,25 @@ public class PartyRepositoryTest {
         Party findParty = partyRepository.findById(partyId);
         assertThat(findParty.getPartyName()).isEqualTo(updateParty.getPartyName());
         assertThat(findParty.getPartyDescription()).isEqualTo(updateParty.getPartyDescription());
-        assertThat(findParty.isPublic()).isEqualTo(updateParty.isPublic());
+        assertThat(findParty.getIsPublic()).isEqualTo(updateParty.getIsPublic());
     }
 
     @Test
     void addMember(){
         //given
-        Party party = new Party("파티A", "처음 만든 파티입니다", 0,
+        Party party = new Party("파티A", "처음 만든 파티입니다", 0L,
                 true, null, null);
 
         partyRepository.save(party);
-        Long partyId = party.getPartyId();
+        Long partyId = party.getId();
 
         //when
-        partyRepository.addMember(partyId, 1);
-        partyRepository.addMember(partyId, 2);
+        partyRepository.addMember(partyId, 1L);
+        partyRepository.addMember(partyId, 2L);
         Party updateParty = partyRepository.findById(partyId);
 
         //then
-        assertThat(updateParty.getMembers()).contains(1);
+        assertThat(updateParty.getMembers()).contains(1L);
         assertThat(updateParty.getMembers()).isEqualTo(party.getMembers());
     }
 
@@ -94,15 +94,15 @@ public class PartyRepositoryTest {
     void removeMember(){
         //given
 
-        Party party = new Party("파티A", "처음 만든 파티입니다", 0,
+        Party party = new Party("파티A", "처음 만든 파티입니다", 0L,
                 true, null, null);
 
 
         partyRepository.save(party);
-        Long partyId = party.getPartyId();
+        Long partyId = party.getId();
 
-        partyRepository.addMember(partyId, 1);
-        partyRepository.addMember(partyId, 2);
+        partyRepository.addMember(partyId, 1L);
+        partyRepository.addMember(partyId, 2L);
 
         //when
         partyRepository.removeMember(partyId, 1);
@@ -110,7 +110,7 @@ public class PartyRepositoryTest {
 
         //then
         //assertThat(updateParty.getMembers()).contains(1);
-        assertThat(party.getMembers()).contains(2);
+        assertThat(party.getMembers()).contains(2L);
 
     }
 

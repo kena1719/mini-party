@@ -2,6 +2,7 @@ package kenanas.miniparty.domain.party;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,8 +18,8 @@ public class PartyRepository {
 
     //생성
     public Party save (Party party){
-        party.setPartyId(sequence++);
-        store.put(party.getPartyId(), party);
+        party.setId(++sequence);
+        store.put(party.getId(), party);
         return party;
     }
 
@@ -44,7 +45,11 @@ public class PartyRepository {
         //선택사항 3
         findParty.setIsPublic(updateParam.getIsPublic());
         findParty.setPartyPassword(updateParam.getPartyPassword());
-        findParty.setImageUrl(updateParam.getImageUrl());
+        if (!ObjectUtils.isEmpty(updateParam.getImageUrl())){
+            findParty.setImageUrl(updateParam.getImageUrl());
+        }
+        //받아온 이미지 Url 이 경로를 가지고 돌아왔을때만 업데이트.
+
     }
 
     //삭제
@@ -55,9 +60,9 @@ public class PartyRepository {
     // ---유저 관련 ---
 
 
-    public void addMember(Long partyId, Integer userId){
+    public void addMember(Long partyId, Long userId){
         Party findParty = findById(partyId);
-        List<Integer> members = findParty.getMembers();
+        List<Long> members = findParty.getMembers();
         members.add(userId);
         findParty.setMembers(members);
         log.info("addMember = {}", members);
@@ -65,7 +70,7 @@ public class PartyRepository {
 
     public void removeMember(Long partyId, Integer userId){
         Party findParty = findById(partyId);
-        List<Integer> members = findParty.getMembers();
+        List<Long> members = findParty.getMembers();
         members.remove(userId);
         findParty.setMembers(members);
         log.info("removeMember = {}", members);

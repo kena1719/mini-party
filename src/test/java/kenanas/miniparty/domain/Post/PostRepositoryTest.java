@@ -32,7 +32,7 @@ public class PostRepositoryTest {
         Post savedPost = postRepository.save(post);
 
         //
-        Post findPost = postRepository.findById(savedPost.getPostId());
+        Post findPost = postRepository.findById(savedPost.getId());
         assertThat(findPost).isEqualTo(savedPost);
     }
 
@@ -60,8 +60,8 @@ public class PostRepositoryTest {
 
         //when
         Post saved = postRepository.save(post);
-        postRepository.updateContent(saved.getPostId(), "수정");
-        Long postId = saved.getPostId();
+        postRepository.updateContent(saved.getId(), "수정");
+        Long postId = saved.getId();
 
         //then
         assertThat(postRepository.findById(postId).getContent()).isEqualTo("수정");

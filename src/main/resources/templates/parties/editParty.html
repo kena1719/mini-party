@@ -8,6 +8,10 @@
         .container {
             max-width: 560px;
         }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -18,17 +22,21 @@
         <h2>파티 수정 폼</h2>
     </div>
 
-    <form action="party.html" th:action th:object="${party}" method="post">
+    <form action="party.html" th:action th:object="${party}" enctype="multipart/form-data" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+               th:text="${err}">전체 오류 메시지</p>
+        </div>
         <div>
             <label for="partyId">파티 ID</label>
-            <input type="text" id="partyId"  class="form-control" th:field="*{partyId}" readonly>
+            <input type="text" id="partyId"  class="form-control" th:field="*{id}" readonly>
         </div>
         <div>
             <label for="partyName">파티명</label>
             <input type="text" id="partyName"  class="form-control" th:field="*{partyName}">
         </div>
         <div>
-            <label for="partyDescription">간략 설명</label>
+            <label for="partyDescription">파티 소개</label>
             <input type="text" id="partyDescription" class="form-control" th:field="*{partyDescription}">
         </div>
         <div>
@@ -41,9 +49,21 @@
         <div>공개 여부</div>
         <div>
             <div class="form-check">
-                <input type="checkbox" id="open" th:field="${party.isPublic}" class="form-check-input">
+                <input type="checkbox" id="open" th:field="${party.isPublic}" class="form-check-input" >
                 <label for="open" class="form-check-label">모두에게 공개</label>
             </div>
+        </div>
+        <div>
+            <label for="partyPassword">비밀번호</label>
+            <input type="text" id="partyPassword" name="partyPassword" class="form-control" value="" th:value="${party.partyPassword}">
+        </div>
+        <div>
+            <label for="imageUrl">파티 소개 이미지</label>
+            <input type="file" id="imageUrl" name="imageUrl" class="form-control" th:value="${party.imageUrl}">
+        </div>
+        <div th:if="${party?.imageUrl}">
+            <a th:text="${party.getImageUrl().getUploadFileName()}" /><br/>
+            <img th:src="|/parties/images/${party.getImageUrl().getStoreFileName()}|" width="300" height="300"/>
         </div>
 
         <hr class="my-4">
@@ -55,7 +75,7 @@
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='party.html'"
-                        th:onclick="|location.href='@{/parties/{partyId}(partyId=${party.partyId})}'|"
+                        th:onclick="|location.href='@{/parties/{partyId}(partyId=${party.id})}'|"
                         type="button">취소</button>
             </div>
         </div>

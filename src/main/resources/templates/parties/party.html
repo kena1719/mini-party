@@ -23,7 +23,7 @@
 
     <div>
         <label for="partyId">파티 ID</label>
-        <input type="text" id="partyId" name="partyId" class="form-control" value="1" th:value="${party.partyId}" readonly>
+        <input type="text" id="partyId" name="partyId" class="form-control" value="1" th:value="${party.id}" readonly>
     </div>
     <div>
         <label for="partyName">파티명</label>
@@ -48,6 +48,11 @@
             <label for="open" class="form-check-label">모두에게 공개</label>
         </div>
     </div>
+    <div th:if="${party?.imageUrl}">
+        <a th:text="${party.getImageUrl().getUploadFileName()}" /><br/>
+        <img th:src="|/parties/images/${party.getImageUrl().getStoreFileName()}|" width="300" height="300"/>
+    </div>
+
 
 
 
@@ -57,7 +62,7 @@
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editParty.html'"
-                    th:onclick="|location.href='@{/parties/{partyId}/edit(partyId=${party.partyId})}'|"
+                    th:onclick="|location.href='@{/parties/{partyId}/edit(partyId=${party.id})}'|"
                     type="button">파티 수정</button>
         </div>
         <div class="col">

@@ -9,10 +9,10 @@ import java.util.List;
 @Getter @Setter
 public class User {
 
-    private Long userId;
+    private Long id;
 
     //필수
-    private String email;           //로그인 시 사용할 이메일
+    private String loginId;         //로그인 시 사용할 이메일
     private String password;        //로그인 시 사용할 비밀번호
     private String userName;        //활동중 사용할 닉네임
 
@@ -26,11 +26,12 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password, String userName, String userDescription, String imageUrl) {
-        this.email = email;
+    public User(String loginId, String password, String userName, String userDescription, String imageUrl) {
+        this.loginId = loginId;
         this.password = password;
         this.userName = userName;
         this.userDescription = userDescription;
         this.imageUrl = imageUrl;
     }
+
 }

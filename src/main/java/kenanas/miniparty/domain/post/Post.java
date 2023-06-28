@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class Post {
 
-    private Long postId;
+    private Long id;
 
     private int author; // 글쓴이Id
 

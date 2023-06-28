@@ -34,8 +34,8 @@
             </thead>
             <tbody>
             <tr th:each="party : ${parties}">
-                <td><a href="party.html" th:href="@{/parties/{partyId}(partyId=${party.partyId})}" th:text="${party.partyId}">파티id</a></td>
-                <td><a href="party.html" th:href="@{|/parties/${party.partyId}|}" th:text="${party.partyName}">파티명</a></td>
+                <td><a href="party.html" th:href="@{/parties/{partyId}(partyId=${party.id})}" th:text="${party.id}">파티ID</a></td>
+                <td><a href="party.html" th:href="@{|/parties/${party.id}|}" th:text="${party.partyName}">파티명</a></td>
                 <td th:text="${party.partyDescription}">간략소개</td>
                 <td th:text="${party.partyAdmin}">5</td>
             </tr>

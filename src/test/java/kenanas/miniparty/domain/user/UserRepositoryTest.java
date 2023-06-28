@@ -26,8 +26,8 @@ public class UserRepositoryTest {
         User savedUser = userRepository.save(user);
 
         //then
-        User findUser = userRepository.findById(savedUser.getUserId());
-        assertThat(findUser.getUserId()).isEqualTo(savedUser.getUserId());
+        User findUser = userRepository.findById(savedUser.getId());
+        assertThat(findUser.getId()).isEqualTo(savedUser.getId());
 
     }
 
@@ -55,7 +55,7 @@ public class UserRepositoryTest {
         User userA= new User("testA@naver.com", "password1234", "HelloMyNickname",
                 null, null);
         User savedUser = userRepository.save(userA);
-        Long userId = savedUser.getUserId();
+        Long userId = savedUser.getId();
 
         //when
         User userRenew = new User("testB@google.com", "1234password", "NaNaNas RENEW",
@@ -65,7 +65,7 @@ public class UserRepositoryTest {
         //then
         User findUser = userRepository.findById(userId);
         assertThat(findUser.getUserName()).isEqualTo(userRenew.getUserName());
-        assertThat(findUser.getEmail()).isEqualTo(userRenew.getEmail());
+        assertThat(findUser.getLoginId()).isEqualTo(userRenew.getLoginId());
         assertThat(findUser.getUserDescription()).isEqualTo(userRenew.getUserDescription());
 
     }

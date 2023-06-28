@@ -2,10 +2,7 @@ package kenanas.miniparty.domain.user;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class UserRepository {
@@ -14,8 +11,8 @@ public class UserRepository {
     private static long sequence = 0L;
 
     public User save(User user){
-        user.setUserId(sequence++);
-        store.put(user.getUserId(), user);
+        user.setId(++sequence);
+        store.put(user.getId(), user);
         return user;
     }
 
@@ -31,7 +28,7 @@ public class UserRepository {
         User findUser = store.get(id);
 
         //필수
-        findUser.setEmail(user.getEmail());
+        findUser.setLoginId(user.getLoginId());
         findUser.setUserName(user.getUserName());
         findUser.setPassword(user.getPassword());
 
@@ -44,4 +41,21 @@ public class UserRepository {
         store.clear();
     }
 
+    public Optional<User> findByLoginId(String loginId) {
+        /*
+        iter을 사용하면
+        List<User> all = findAll();
+        for (User user : all) {
+            if (user.getLoginId().equals(loginId)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();*/
+
+        return findAll().stream()
+                .filter(user -> user.getLoginId().equals(loginId))
+                .findFirst();
+
+
+    }
 }
